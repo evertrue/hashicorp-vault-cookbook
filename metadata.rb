@@ -1,4 +1,4 @@
-name 'hashicorp-vault'
+name 'et_hashicorp-vault'
 maintainer 'John Bellone'
 maintainer_email 'jbellone@bloomberg.net'
 license 'Apache 2.0'

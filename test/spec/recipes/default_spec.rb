@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe_recipe 'hashicorp-vault::default' do
+describe_recipe 'et_hashicorp-vault::default' do
   cached(:chef_run) do
     ChefSpec::ServerRunner.new do |_node, server|
       server.create_data_bag('secrets',

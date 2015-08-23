@@ -1,5 +1,5 @@
 #
-# Cookbook: hashicorp-vault-cookbook
+# Cookbook: et_hashicorp-vault-cookbook
 # License: Apache 2.0
 #
 # Copyright (C) 2015 Bloomberg Finance L.P.
