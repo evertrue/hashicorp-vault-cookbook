@@ -1,0 +1,50 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  region: us-east-1
+  availability_zone: us-east-1e
+  security_group_ids:
+    - ci-testing
+  instance_type: c3.large
+  interface: public
+  transport:
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+    driver_config:
+      image_id: ami-9301c7f8
+      tags:
+        Env: public
+        Type: test
+    attributes:
+      vault:
+        config:
+          backend:
+            inmem: {}
+
+suites:
+  - name: default
+    run_list:
+      - recipe[et_hashicorp-vault_tester::default]
+    driver_config:
+      tags:
+        Name: vault-default-ubuntu-1404
+
+  - name: no_cert_mgmt
+    run_list:
+      - recipe[et_hashicorp-vault_tester::no_cert_mgmt]
+    driver_config:
+      tags:
+        Name: vault-zookeeper_no_cert-ubuntu-1404
+
+  - name: zookeeper
+    run_list:
+      - recipe[et_hashicorp-vault_tester::zookeeper_no_cert]
+    driver_config:
+      tags:
+        Name: vault-zookeeper_no_cert-ubuntu-1404

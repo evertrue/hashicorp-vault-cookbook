@@ -2,8 +2,14 @@
 language: ruby
 notifications:
   slack: blpsi:eHp3Czg42iGzaTgG8sAFeD9v
+before_install:
+  - openssl aes-256-cbc -K $encrypted_1ecf95365bb2_key -iv $encrypted_1ecf95365bb2_iv
+    -in travis_ci_ec2.pem.enc -out ~/.ssh/travis_ci_ec2.pem -d
+  - mkdir ~/.chef
+  - echo 'node_name "trubot"' >> ~/.chef/knife.rb
+  - chmod 600 ~/.chef/knife.rb ~/.ssh/travis_ci_ec2.pem
 install:
-  - bundle install --retry 3 --deployment --without kitchen_vagrant kitchen_cloud
+  - bundle install --retry 3 --deployment --without kitchen_vagrant
   - bundle exec berks install
 script:
   - bundle exec rake travis
@@ -19,3 +25,7 @@ branches:
 builder_args: --jobs 7
 matrix:
   fast_finish: true
+env:
+  global:
+  - secure: fMSyOtwbjIoA947BTded8e/hbbwCuXSlEuUpLe1990+Si7yzVUr7i+owxVKucowcI3avHRFiuA4uEV8QQuwRncQYMflIxV0H/GWWBtLRLYQOXIpWuZXICJgIpIEfrmwlwkjH+q8NcF/R3Zwyl2tG6MEO/cu/psKa4tNSR8YcynhKUuQldnPJtuMD7dA1YThoBG2gJhDmHr37cDg0lpfuE+9p+lk/KC0R4rP2qZPtFlgpGgXtv25OUqB0Ov21bx73NIFSmOHNTn5YnB05vjtwIg6ZTNtjv9btqY1b9ORd0786PjR6mhV3BKLDlpgXAbkuzHL3X5q4KOo5DHI5TdKie9GhsydY7CipIw6IbWaOxyQ1imkwek53wus/BksmBxWEZR2rB3YlKwwUuDvoeO+cIkH/8unVL7LDt0qp2c9B0jcf4bvntMfA8Z25n/piLgvnLzy1WFsNu+5u6ca3/ATlk6aEJaofbQJbEm9YOyNuXZLaQxg6OGY8BRxK07l0l1WPPdZEXBNv1BXfRmlV9m1HKKn9eQABaDpJCg0GxlOw4RhuyaV0pijAfmCFTdsq2O/UlKzPd4BHC92Vh0tsWox1tGBJGzW4VMYnzSr6L6pNClHK6s9yNo8LkoZlgOgoQ2vNgJmuxcBeuPw4idHdYt/pO9G4EnKfHHKgz/HDGXI3beI=
+  - secure: sQWnKdXbQhD+hmUFimb9KcY4F/j9MjtmbvC2Uc1QOVmITyQDpH4dgrhUAkZiZfEq+TJ5NB45OKNWMkR1jpA3Q/UCSAWNtco8P/ZF3eIUS6T3PAtAwvqrzHvRIgHGVFM3x/BUU2CvDYn46TT0DPbIrfx7Yx5a5wLkrR1+CZIc7TTLiA+zAaKNnbLERBt7fGAbnf3QVDccyhzywv4+Xii4KOEMdXvs/lLPbJIGCTJzrgzuGhqDsEdquVzCLdbAnmK+7EWhbYoziZgUWr7xaVaVYe9LfSIHEtyCsCthIAObHckVznG9dHdWrlAlslVD0yC/DZfzRxBEAeEljs9VHm3B1QhcaSVBLA7xxgKNt/Dj5vEtMRhxa9AGt3JO2sBGnz12/Z1wKeDf5Cmjobz4kxddjzUHhGP6vAk4DsNj4k8pEYfMO5aAuf2xavurqoAT4SlcILtGK0v5ngJU8OCtzi6DjLkCcQubk5RNMq2yCfMkNl0SWjiZTv1vmIOHDQ5MnM5WaLt8qYC+5rioH99vgMu3DpMmEj2dRMevmXvEnCOXTtEUFxIXvLkNo3bVaehKpu1xVpse6jGAcHJwKDzRanq8uPXL2Ee+2DCal48ncMwPUOHWImBZ+JDxftj5QpcML0DcsncITbgLv17mx05MteqC3JhBPY+JfcwBTbHzGS3H2qc=

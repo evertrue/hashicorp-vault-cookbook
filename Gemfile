@@ -19,7 +19,7 @@ group :kitchen_vagrant do
 end
 
 group :kitchen_cloud do
-  gem 'kitchen-openstack', '~> 1.8'
+  gem 'kitchen-ec2', '~> 0.10'
 end
 
 group :unit do
