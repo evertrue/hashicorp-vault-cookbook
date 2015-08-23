@@ -21,7 +21,7 @@ cache:
     - vendor/bundle
 branches:
   only:
-    - master
+    - integration
 builder_args: --jobs 7
 matrix:
   fast_finish: true
