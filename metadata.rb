@@ -6,7 +6,7 @@ description 'Application cookbook for installing and configuring Vault.'
 long_description 'Application cookbook for installing and configuring Vault.'
 version '1.3.1'
 
-supports 'ubuntu', '>= 12.04'
+supports 'ubuntu', '= 14.04'
 supports 'redhat', '>= 6.4'
 supports 'centos', '>= 6.4'
 
